@@ -14,7 +14,7 @@ def generate_request():
     request_queue.put(f"Request {request_counter}")
 
 def process_request():
-    while not request_queue.empty():
+    if not request_queue.empty():
         request = request_queue.get()
         print(f"Processing request: {request}")
     else:
