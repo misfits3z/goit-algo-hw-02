@@ -1,19 +1,13 @@
 import queue
 import time
 
-def parse_cmd(cmd):
-    cmd = cmd.strip()
-    cmd = cmd.split(' ')
-    cmd[0] = cmd[0].lower()  
-    return cmd
-
 request_queue = queue.Queue()
 
 def generate_request():
     global request_counter
     request_counter += 1
-    request = f"Request {request_counter}"  
-    request_queue.put(request) 
+    request = f"Request {request_counter}"
+    request_queue.put(request)
     print(f"New request added to queue: {request}")
 
 def process_request():
@@ -31,17 +25,11 @@ def main():
     while True:
         user_input = input("Enter 'add' to create a new request, 'process' to handle requests, or 'exit' to finish: ")
 
-        cmd = parse_cmd(user_input)
-
-        if cmd[0] == "add":
-            if len(cmd) > 1:
-                request = " ".join(cmd[1:])  
-                generate_request()
-            else:
-                print("No request specified. Please try again.")
-        elif cmd[0] == "process":
+        if user_input == "add":
+            generate_request()
+        elif user_input == "process":
             process_request()
-        elif cmd[0] == "exit":
+        elif user_input == "exit":
             print("Exiting the program.")
             break
         else:
