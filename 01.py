@@ -1,4 +1,5 @@
-import queue  
+import queue
+import time
 
 def parse_cmd(cmd):
     cmd = cmd.strip()
@@ -9,14 +10,18 @@ def parse_cmd(cmd):
 request_queue = queue.Queue()
 
 def generate_request():
-    global request_counter  
+    global request_counter
     request_counter += 1
-    request_queue.put(f"Request {request_counter}")
+    request = f"Request {request_counter}"  
+    request_queue.put(request) 
+    print(f"New request added to queue: {request}")
 
 def process_request():
     if not request_queue.empty():
         request = request_queue.get()
         print(f"Processing request: {request}")
+        time.sleep(2)
+        print(f"{request} processed successfully")
     else:
         print("No new requests to process")
 
@@ -32,7 +37,6 @@ def main():
             if len(cmd) > 1:
                 request = " ".join(cmd[1:])  
                 generate_request()
-                print("New request added")
             else:
                 print("No request specified. Please try again.")
         elif cmd[0] == "process":
@@ -45,4 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
